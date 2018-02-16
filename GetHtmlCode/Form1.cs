@@ -13,19 +13,6 @@ namespace GetHtmlCode
         }
 
         private static string _conn;
-       
-        private async void Button2_Click(object sender, EventArgs e)
-        {
-            listBox1.Items.Clear();
-            IWebCollector myWebCollector = new WebCollector();
-            _conn = await myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
-            var choppedString = _conn.Split('>');
-
-            foreach (var i in choppedString)
-            {
-                listBox1.Items.Add(i + ">");
-            }
-        }
 
         private void ButtonCount_Click(object sender, EventArgs e)
         {
