@@ -13,7 +13,21 @@ namespace GetHtmlCode
         }
 
         private static string _conn;
-        private  void button1_Click(object sender, EventArgs e)
+       
+        private async void Button2_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            IWebCollector myWebCollector = new WebCollector();
+            _conn = await myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
+            var choppedString = _conn.Split('>');
+
+            foreach (var i in choppedString)
+            {
+                listBox1.Items.Add(i + ">");
+            }
+        }
+
+        private void ButtonCount_Click(object sender, EventArgs e)
         {
             listBoxMessage.Items.Clear();
             listBoxMessage.Visible = true;
@@ -22,7 +36,7 @@ namespace GetHtmlCode
             listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(_conn, textBoxSearch.Text)} Times in the Sentence");
         }
 
-        private async void button2_Click(object sender, EventArgs e)
+        private async void ButtonGetHtml_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             IWebCollector myWebCollector = new WebCollector();
