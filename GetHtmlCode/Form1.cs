@@ -15,6 +15,7 @@ namespace GetHtmlCode
         private static string _conn;
         private  void button1_Click(object sender, EventArgs e)
         {
+            listBoxMessage.Items.Clear();
             listBoxMessage.Visible = true;
             var s2 = "";
             s2 = textBoxSearch.Text;
@@ -23,6 +24,7 @@ namespace GetHtmlCode
 
         private async void button2_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             IWebCollector myWebCollector = new WebCollector();
             _conn = await myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
             var choppedString = _conn.Split('>');
