@@ -13,22 +13,27 @@ namespace GetHtmlCode
         }
 
         private static string _conn;
-        private  void button1_Click(object sender, EventArgs e)
+
+        private void ButtonCount_Click(object sender, EventArgs e)
         {
+            listBoxMessage.Items.Clear();
             listBoxMessage.Visible = true;
             var s2 = "";
             s2 = textBoxSearch.Text;
-            listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(_conn.ToLower(), textBoxSearch.Text.ToLower())} Times in the Sentence");
+            listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(_conn, textBoxSearch.Text)} Times in the Sentence");
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void ButtonGetHtml_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             IWebCollector myWebCollector = new WebCollector();
-            myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
-            _conn = myWebCollector.Html.ToLower();
-          
+            _conn = await myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
+            var choppedString = _conn.Split('>');
 
-            
+            foreach (var i in choppedString)
+            {
+                listBox1.Items.Add(i + ">");
+            }
         }
     }
 }
