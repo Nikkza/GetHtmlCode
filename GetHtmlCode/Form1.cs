@@ -6,10 +6,12 @@ namespace GetHtmlCode
 {
     public partial class Form1 : Form
     {
+        private IWebCollector myWebCollector;
         public Form1()
         {
             InitializeComponent();
             listBoxMessage.Visible = false;
+            myWebCollector = new WebCollector();
         }
 
         private static string _conn;
@@ -20,20 +22,15 @@ namespace GetHtmlCode
             listBoxMessage.Visible = true;
             var s2 = "";
             s2 = textBoxSearch.Text;
-            listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(_conn, textBoxSearch.Text)} Times in the Sentence");
+            listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(myWebCollector.Html, textBoxSearch.Text.ToLower())} Times in the Sentence");
         }
 
-        private async void ButtonGetHtml_Click(object sender, EventArgs e)
+        private void ButtonGetHtml_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            IWebCollector myWebCollector = new WebCollector();
-            _conn = await myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
-            var choppedString = _conn.Split('>');
+          
 
-            foreach (var i in choppedString)
-            {
-                listBox1.Items.Add(i + ">");
-            }
+            myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
+
         }
     }
 }
