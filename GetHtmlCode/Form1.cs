@@ -18,19 +18,17 @@ namespace GetHtmlCode
             listBoxMessage.Visible = true;
             var s2 = "";
             s2 = textBoxSearch.Text;
-            listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(_conn, textBoxSearch.Text)} Times in the Sentence");
+            listBoxMessage.Items.Add($"The word {s2.ToUpper()} becomes {Count.CountStringOccurrences(_conn.ToLower(), textBoxSearch.Text.ToLower())} Times in the Sentence");
         }
 
-        private async void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             IWebCollector myWebCollector = new WebCollector();
-            _conn = await myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
-            var choppedString = _conn.Split('>');
+            myWebCollector.GetHtmlFromUrlAsync(textBoxUrl.Text);
+            _conn = myWebCollector.Html.ToLower();
+          
 
-            foreach (var i in choppedString)
-            {
-                listBox1.Items.Add(i + ">");
-            }
+            
         }
     }
 }

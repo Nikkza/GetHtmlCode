@@ -10,6 +10,7 @@ namespace GetHtmlCode
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        Task<string> GetHtmlFromUrlAsync(string url);
+        void GetHtmlFromUrlAsync(string url);
+        string Html { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace GetHtmlCode
         {
             var count = 0;
             var i = 0;
-            while ((i = textToSearch.IndexOf(keyword, i)) != -1)
+            while ((i = textToSearch.ToLower().IndexOf(keyword, i)) != -1)
             {
                 i += keyword.Length;
                 count++;

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 
@@ -6,13 +7,17 @@ namespace GetHtmlCode
 {
     public class WebCollector : IWebCollector
     {
-        public async Task<string> GetHtmlFromUrlAsync(string url)
+        public string Html { get; set; }
+
+        public void GetHtmlFromUrlAsync(string url)
         {
-            using (var http = new HttpClient())
+            using (var client = new WebClient())
             {
-                var response = await http.GetAsync(url);
-                return await response.Content.ReadAsStringAsync();
+                Html = client.DownloadString(url);
+
             }
         }
+        
+        
     }
 }
